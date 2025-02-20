@@ -38,11 +38,3 @@ fun Screen4() {
         text = "Screen 4"
     )
 }
-
-@Composable
-fun Screen5() {
-    Text(modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        textAlign = TextAlign.Center,
-        text = "Screen 5"
-    )
-}

@@ -8,7 +8,6 @@ import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen1
 import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen2
 import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen3
 import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen4
-import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen5
 
 @Composable
 fun NavGraph(navHostController: NavHostController)                                                  //change screens
@@ -19,6 +18,5 @@ fun NavGraph(navHostController: NavHostController)                              
         composable("exchange") { Screen2() }
         composable("convert") { Screen3() }
         composable("res") { Screen4() }
-        composable("another") { Screen5() }
     }
 }

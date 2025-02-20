@@ -29,7 +29,6 @@ fun BottomNavigation(navController: NavController) {
         BottomItem.ExchangeScreen2,
         BottomItem.ConvertScreen3,
         BottomItem.ResScreen4,
-        BottomItem.AnotherScreen5,
     )
 
     NavigationBar(

@@ -11,5 +11,4 @@ sealed class BottomItem(
     object ExchangeScreen2: BottomItem("Обменники", R.drawable.exchange, "exchange")
     object ConvertScreen3: BottomItem("Ковертер", R.drawable.convert, "convert")
     object ResScreen4: BottomItem("Ресурсы", R.drawable.res, "res")
-    object AnotherScreen5: BottomItem("Другое", R.drawable.another, "another")
 }
