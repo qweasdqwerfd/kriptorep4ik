@@ -1,13 +1,13 @@
-package com.example.kriptorep4ik.visual.bottom_navigation
+package com.example.kriptorep4ik.visual.instruments.bottom_navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen1
-import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen2
-import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen3
-import com.example.kriptorep4ik.visual.bottom_navigation.screen.Screen4
+import com.example.kriptorep4ik.visual.instruments.screens.Screen1
+import com.example.kriptorep4ik.visual.instruments.screens.Screen2
+import com.example.kriptorep4ik.visual.instruments.screens.Screen3
+import com.example.kriptorep4ik.visual.instruments.screens.Screen4
 
 @Composable
 fun NavGraph(navHostController: NavHostController)                                                  //change screens

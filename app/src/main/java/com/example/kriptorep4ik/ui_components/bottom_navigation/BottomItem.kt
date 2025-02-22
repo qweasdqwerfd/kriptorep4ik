@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.bottom_navigation
+package com.example.kriptorep4ik.visual.instruments.bottom_navigation
 
 import com.example.kriptorep4ik.R
 

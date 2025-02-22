@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.bottom_navigation.screen
+package com.example.kriptorep4ik.visual.instruments.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentHeight

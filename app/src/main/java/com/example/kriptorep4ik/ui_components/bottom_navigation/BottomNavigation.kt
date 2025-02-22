@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.bottom_navigation
+package com.example.kriptorep4ik.visual.instruments.bottom_navigation
 
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
