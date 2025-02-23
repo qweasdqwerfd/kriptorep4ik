@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.instruments.top_bar
+package com.example.kriptorep4ik.ui_components.top_bar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
@@ -53,8 +53,6 @@ fun TopBar(
 
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Gray),
-
-
         title = {
             Text(
 
@@ -69,11 +67,6 @@ fun TopBar(
             )
         },
 
-        navigationIcon = {
-            IconButton(onClick = {}) {
-                Icon(imageVector = Icons.Filled.Menu, contentDescription = "")
-            }
-        },
         actions = {
             when (currentRoute) {
                 "primary" -> {

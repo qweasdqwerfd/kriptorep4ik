@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.instruments.bottom_navigation
+package com.example.kriptorep4ik.ui_components.bottom_navigation
 
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -22,11 +22,12 @@ import com.example.kriptorep4ik.ui.theme.hz
 
 
 @Composable
-fun BottomNavigation(navController: NavController) {
+fun BottomNavigation(navController: NavController, onBottomNavClick: () -> Unit) {
 
     val listItems = listOf(
         BottomItem.PrimaryScreen1,
         BottomItem.ExchangeScreen2,
+        BottomItem.MenuScreen5,
         BottomItem.ConvertScreen3,
         BottomItem.ResScreen4,
     )
@@ -44,8 +45,12 @@ fun BottomNavigation(navController: NavController) {
             NavigationBarItem(
                 selected = currentRoute == item.route,
                 onClick = {
-                    navController.navigate(item.route)
-                },
+                    if (item.route == "menu") {
+                        onBottomNavClick()
+                    } else {
+                        navController.navigate(item.route)
+                    }
+                          },
                 icon = {
                     Icon(
                         painter = painterResource(id = item.iconId),

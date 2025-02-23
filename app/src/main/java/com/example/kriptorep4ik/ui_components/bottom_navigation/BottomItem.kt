@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.instruments.bottom_navigation
+package com.example.kriptorep4ik.ui_components.bottom_navigation
 
 import com.example.kriptorep4ik.R
 
@@ -11,4 +11,5 @@ sealed class BottomItem(
     object ExchangeScreen2: BottomItem("Обменники", R.drawable.exchange, "exchange")
     object ConvertScreen3: BottomItem("Ковертер", R.drawable.convert, "convert")
     object ResScreen4: BottomItem("Ресурсы", R.drawable.res, "res")
+    object MenuScreen5: BottomItem("Меню", R.drawable.menu, "menu")
 }

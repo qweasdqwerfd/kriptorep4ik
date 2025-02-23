@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.visual.instruments.custom
+package com.example.kriptorep4ik.ui_components.snack_bar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -36,9 +36,10 @@ fun CustomSnackBar(data: SnackbarData) {
             if (data.visuals.actionLabel != null) {
                 TextButton(
                     onClick = { data.performAction() }, // Выполнить действие
-                    colors = ButtonDefaults.textButtonColors(contentColor = Color.Yellow)
-                ) {
-                    Text(text = data.visuals.actionLabel!!)
+                    colors = ButtonDefaults.textButtonColors(contentColor = Color.Red)
+                )  {
+                    Text(text = data.visuals.actionLabel!!,
+                    )
                 }
             }
         }
