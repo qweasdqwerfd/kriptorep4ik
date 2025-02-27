@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.kriptorep4ik.logic.JsoupParser
 import com.example.kriptorep4ik.ui_components.MainScreen
 
 class MainActivity : ComponentActivity() {
@@ -12,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MainScreen()
-
+            JsoupParser().init()
         }
     }
 }
