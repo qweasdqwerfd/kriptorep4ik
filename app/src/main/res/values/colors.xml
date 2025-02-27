@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="DefoultButton">#3b3b3b</color>
     <color name="MainInterface">#202020</color>
+    <color name="MainInterface2">#181414</color>
 </resources>

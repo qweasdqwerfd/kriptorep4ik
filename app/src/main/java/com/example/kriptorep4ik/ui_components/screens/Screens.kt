@@ -8,13 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
-@Composable
-fun Screen1() {
-    Text(modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        textAlign = TextAlign.Center,
-        text = "Screen 1"
-    )
-}
+
 
 @Composable
 fun Screen2() {
@@ -41,6 +35,4 @@ fun Screen4() {
 }
 
 @Composable
-fun Screen5() {
-
-}
+fun Screen5() {}

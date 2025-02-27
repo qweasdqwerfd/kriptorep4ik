@@ -33,8 +33,7 @@ fun BottomNavigation(navController: NavController, onBottomNavClick: () -> Unit)
     )
 
     NavigationBar(
-        modifier = Modifier.offset(y = 15.dp),
-        containerColor = Color.Gray
+        containerColor = colorResource(R.color.MainInterface),
     ) {
 
         val backStackEntry by navController.currentBackStackEntryAsState()
@@ -55,22 +54,21 @@ fun BottomNavigation(navController: NavController, onBottomNavClick: () -> Unit)
                     Icon(
                         painter = painterResource(id = item.iconId),
                         modifier = Modifier.size(20.dp),
-                        contentDescription = "Icon"
+                        contentDescription = "Icon",
                     )
                 },
                 label = { Text(text = item.title, fontSize = 9.sp) },
 
                 colors = NavigationBarItemColors(
-                    selectedIconColor = Color.Black,
-                    selectedTextColor = colorResource(id = R.color.MainInterface),
-                    unselectedIconColor = colorResource(id = R.color.MainInterface),
-                    unselectedTextColor = colorResource(id = R.color.MainInterface),
+                    selectedIconColor = Color.White,
+                    selectedTextColor = Color.White,
+                    unselectedIconColor = Color.White,
+                    unselectedTextColor = Color.White,
                     selectedIndicatorColor = hz,
                     disabledIconColor = hz,
                     disabledTextColor = hz
                 )
             )
         }
-
     }
 }

@@ -4,11 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.kriptorep4ik.ui_components.screens.Screen1
+import com.example.kriptorep4ik.ui_components.screens.primary.Screen1
 import com.example.kriptorep4ik.ui_components.screens.Screen2
 import com.example.kriptorep4ik.ui_components.screens.Screen3
 import com.example.kriptorep4ik.ui_components.screens.Screen4
-import com.example.kriptorep4ik.ui_components.screens.Screen5
 
 @Composable
 fun NavGraph(navHostController: NavHostController)                                                  //change screens

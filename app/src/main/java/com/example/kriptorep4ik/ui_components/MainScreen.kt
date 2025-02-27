@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
-import com.example.kriptorep4ik.ui_components.snack_bar.CustomSnackBar
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
+import com.example.kriptorep4ik.ui_components.snack_bar.CustomSnackBar
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
 
 @Composable
