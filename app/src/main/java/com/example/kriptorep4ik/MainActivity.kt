@@ -7,13 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import com.example.kriptorep4ik.logic.JsoupParser
 import com.example.kriptorep4ik.ui_components.MainScreen
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MainScreen()
-            JsoupParser().init()
+
         }
     }
 }

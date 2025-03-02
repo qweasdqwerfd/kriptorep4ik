@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,9 +28,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
+import com.example.kriptorep4ik.logic.CurrencyRateModel
 
 @Composable
-fun Screen1() {
+fun primary(rates: List<CurrencyRateModel>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -50,55 +51,66 @@ fun Screen1() {
         }
 
 
+        LazyColumn {
+            items(rates) { rate ->
+                CurrencyItem(rate = rate)
+            }
+        }
+    }
+}
 
-        Card(
+@Composable
+fun CurrencyItem(rate: CurrencyRateModel) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Gray,
+            contentColor = Color.White
+        ),
+    ) {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp),
-            shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Gray,
-                contentColor = Color.White
-            ),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    modifier = Modifier.size(80.dp),
-                    painter = painterResource(R.drawable.image10),
-                    contentDescription = "usa_image",
-                    contentScale = ContentScale.Fit
-                )
 
-                Spacer(modifier = Modifier.width(10.dp))
+            Image(
+                modifier = Modifier.size(80.dp),
+                painter = painterResource(R.drawable.image10), // Замените на ваше изображение
+                contentDescription = "currency_image",
+                contentScale = ContentScale.Fit
+            )
 
+            Spacer(modifier = Modifier.width(10.dp))
+
+            // Название валюты и код
+            Column {
                 Text(
-                    text = "USD",
+                    text = rate.currency,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.End,
-
-                ) {
-                    Text(
-                        text = "20.02.2025",
-                    )
-                    Text(
-                        text = "90.4268 rub"
-                    )
-                    Text(
-                        text = "-0.9130"
-                    )
-                }
+                Text(
+                    text = rate.letter_code,
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
             }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Курс валюты
+            Text(
+                text = "${rate.rate} RUB",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
         }
     }
 }
