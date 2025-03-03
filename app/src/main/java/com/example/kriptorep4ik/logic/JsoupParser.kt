@@ -1,9 +1,7 @@
 package com.example.kriptorep4ik.logic
 
 import android.util.Log
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -12,47 +10,63 @@ import org.jsoup.select.Elements
 
 class JsoupParser {
 
-    suspend fun getWeb(): List<CurrencyRateModel> {
+
+    suspend fun getWeb(): List<ParserModel> {
         return withContext(Dispatchers.IO) {
-
             try {
-                val doc: Document = Jsoup.connect("https://www.cbr.ru/currency_base/daily/").get()
-                val tables: Elements = doc.getElementsByTag("tr")
-                val currencyRatesContainer = mutableListOf<CurrencyRateModel>()
+                val doc: Document = Jsoup.connect("https://finance.rambler.ru/currencies/").get()
+                val letterCode: Elements = doc.select("span.ZUUpr1jh.Vf1AWW7q")
+                val unit: Elements = doc.select("span.PjocFlvi")
+                val rate: Elements = doc.select("span._ZXx92_y")
+                val currency: Elements = doc.select("span.OYTwr2Ke")
+                val date: String? = doc.select("span.PsQREKPJ").text()
 
-                for (i in 1 until  tables.size) {
-                    val our_table: Element = tables[i]
-                    val temp: Elements = our_table.children()
+                // Собираем все элементы, которые могут содержать изменения
+                val changeElements: Elements = doc.select("span.M6nt2YLN")
 
-                    val letter_code: Element = temp[1]
-                    val rate: Element = temp[temp.size - 1]
+                val allChanges = mutableListOf<String>()
+                for (element in changeElements) {
 
-                    val currency: String = if (temp.size == 6) {
-                        "${temp[3].text()} ${temp[4].text()}"
-
-                    } else {
-
-                        temp[3].text()
+                    when {
+                        element.hasClass("uMrkuHxH") -> allChanges.add(element.text()) // Положительное изменение
+                        element.hasClass("GlHvWI7G") -> allChanges.add(element.text()) // Отрицательное изменение
                     }
-                    val currencyRateModel = CurrencyRateModel(
-                        currency = currency,
-                        letter_code = letter_code.text(),
-                        rate = rate.text()
-                    )
-                    currencyRatesContainer.add(currencyRateModel)
-
-                    Log.d("mylog", our_table.text())
-                    Log.d("mylog", letter_code.text())
-                    Log.d("mylog", currency)
-                    Log.d("mylog", rate.text())
-
                 }
 
-                currencyRatesContainer
+                val additionalParserList: MutableList<ParserModel> = mutableListOf()
 
+                var percentageIndex = 10
+                var letterIndex = 0
+                var unitIndex = 0
+                var rateIndex = 22
+                var currencyIndex = 0
+
+                while (percentageIndex < allChanges.size && letterIndex < letterCode.size
+                    && unitIndex < unit.size && rateIndex < rate.size && currencyIndex < currency.size
+                ) {
+
+                    val tempContainer = ParserModel(
+                        letterCode = letterCode[letterIndex].text(),
+                        change = allChanges[percentageIndex],
+                        percentageChange = allChanges[percentageIndex + 1],
+                        currency = currency[currencyIndex].text(),
+                        rate = rate[rateIndex].text(),
+                        unit = unit[unitIndex].text(),
+                        date = date.toString()
+                    )
+                    additionalParserList.add(tempContainer)
+
+                    percentageIndex += 2
+                    letterIndex++
+                    unitIndex++
+                    rateIndex++
+                    currencyIndex++
+                }
+
+                return@withContext additionalParserList
             } catch (e: Exception) {
-                Log.e("mylog", "Error in getWeb: ${e.message}", e)
-                emptyList()
+                Log.e("mylog", "error: ${e.message}")
+                return@withContext emptyList()
             }
         }
     }

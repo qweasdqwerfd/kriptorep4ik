@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -28,31 +29,54 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.logic.CurrencyRateModel
+import com.example.kriptorep4ik.logic.CurrencyImages
+import com.example.kriptorep4ik.logic.ParserModel
+
 
 @Composable
-fun primary(rates: List<CurrencyRateModel>) {
+fun Primary(viewModelList: List<ParserModel>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Black)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = 10.dp),
+            horizontalArrangement = Arrangement.Center,
+
+            ) {
             Text(
-                modifier = Modifier.padding(10.dp),
                 text = "Курсы валют",
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 color = Color.White,
                 fontSize = 30.sp
             )
+
+        }
+
+        if (viewModelList.isNotEmpty()) {
+            Text(
+                modifier = Modifier.padding(start = 13.dp, top = 5.dp),
+                text = "${viewModelList[0].date}",
+                fontSize = 15.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+            )
+        } else {
+            Text(
+                modifier = Modifier.padding(10.dp),
+                text = "Нет данных",
+                fontSize = 25.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+            )
         }
 
 
         LazyColumn {
-            items(rates) { rate ->
+            items(viewModelList) { rate ->
                 CurrencyItem(rate = rate)
             }
         }
@@ -60,7 +84,10 @@ fun primary(rates: List<CurrencyRateModel>) {
 }
 
 @Composable
-fun CurrencyItem(rate: CurrencyRateModel) {
+fun CurrencyItem(rate: ParserModel) {
+
+    val imageRes = CurrencyImages.images[rate.letterCode] ?: R.drawable.xdr
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,37 +107,76 @@ fun CurrencyItem(rate: CurrencyRateModel) {
 
             Image(
                 modifier = Modifier.size(80.dp),
-                painter = painterResource(R.drawable.image10), // Замените на ваше изображение
+                painter = painterResource(imageRes),
                 contentDescription = "currency_image",
-                contentScale = ContentScale.Fit
+                contentScale = ContentScale.Inside
             )
 
             Spacer(modifier = Modifier.width(10.dp))
 
             // Название валюты и код
             Column {
+
+                Text(
+                    text = rate.letterCode,
+                    fontSize = 25.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.ExtraBold,
+                )
+
                 Text(
                     text = rate.currency,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Text(
-                    text = rate.letter_code,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
                     color = Color.White
                 )
             }
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(25f))
 
-            // Курс валюты
-            Text(
-                text = "${rate.rate} RUB",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.End
+            ) {
+
+                Text(
+                    text = "${rate.change}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = if (rate.change?.toDoubleOrNull() ?: 0.0 > 0) Color.Green else Color.Red
+                )
+
+                Spacer(modifier = Modifier.weight(15f))
+
+
+                Text(
+                    text = "${rate.rate} ₽",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+
+                Spacer(modifier = Modifier.weight(25f))
+
+
+                Text(
+                    text = "${rate.percentageChange}",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = if (rate.percentageChange?.replace("%", "")
+                            ?.toDoubleOrNull() ?: 0.0 > 0
+                    ) Color.Green else Color.Red
+                )
+
+            }
+
         }
+//        Row(modifier = Modifier.padding(start = 10.dp), verticalAlignment = Alignment.Bottom) {
+//            Text(
+//                text = "ед: ${rate.unit}",
+//                color = Color.Black,
+////                textDecoration = TextDecoration.None
+//            )
+//        }
     }
 }

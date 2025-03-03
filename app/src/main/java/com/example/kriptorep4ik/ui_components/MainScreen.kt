@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -21,9 +20,10 @@ import com.example.kriptorep4ik.logic.CurrencyViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
-import com.example.kriptorep4ik.ui_components.screens.primary.primary
+import com.example.kriptorep4ik.ui_components.screens.primary.Primary
 import com.example.kriptorep4ik.ui_components.snack_bar.CustomSnackBar
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
+
 
 @Composable
 fun MainScreen(viewModel: CurrencyViewModel = viewModel()) {
@@ -34,17 +34,15 @@ fun MainScreen(viewModel: CurrencyViewModel = viewModel()) {
     val snackBarHostState = remember { SnackbarHostState() }
     var showBottomSheet by remember { mutableStateOf(false) }
 
-    val rates by viewModel.currencyRates.observeAsState(emptyList())
+
+    val parserRequest by viewModel.liveData.observeAsState(emptyList())
+    Primary(parserRequest)
 
     LaunchedEffect(Unit) {
         viewModel.loadData(this)
     }
 
-    if (rates.isEmpty()) {
-        Text("Загрузка...")
-    } else {
-        primary(rates = rates)
-    }
+
 
 
     Scaffold(
