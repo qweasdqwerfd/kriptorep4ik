@@ -29,8 +29,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.logic.CurrencyImages
-import com.example.kriptorep4ik.logic.ParserModel
+import com.example.kriptorep4ik.parse_data.CurrencyImages
+import com.example.kriptorep4ik.parse_data.ParserModel
 
 
 @Composable

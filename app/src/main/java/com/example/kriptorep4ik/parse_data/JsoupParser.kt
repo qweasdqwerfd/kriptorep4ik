@@ -1,11 +1,10 @@
-package com.example.kriptorep4ik.logic
+package com.example.kriptorep4ik.parse_data
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
 class JsoupParser {

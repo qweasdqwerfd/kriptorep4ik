@@ -6,11 +6,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.kriptorep4ik.logic.CurrencyViewModel
+import com.example.kriptorep4ik.parse_data.CurrencyViewModel
 import com.example.kriptorep4ik.ui_components.screens.primary.Primary
 import com.example.kriptorep4ik.ui_components.screens.Screen2
 import com.example.kriptorep4ik.ui_components.screens.Screen3
 import com.example.kriptorep4ik.ui_components.screens.Screen4
+import com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.AllScreen
 
 @Composable
 fun NavGraph(navHostController: NavHostController, viewModel: CurrencyViewModel) {
@@ -23,5 +24,15 @@ fun NavGraph(navHostController: NavHostController, viewModel: CurrencyViewModel)
         composable("exchange") { Screen2() }
         composable("convert") { Screen3() }
         composable("res") { Screen4() }
+
+
+//        composable("all") {
+//            AllScreen {
+//                navHostController.navigate("elected")
+//            }
+//        }
+//        composable("elected") {
+//
+//        }
     }
 }

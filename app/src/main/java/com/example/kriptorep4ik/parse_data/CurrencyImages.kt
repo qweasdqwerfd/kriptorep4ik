@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.logic
+package com.example.kriptorep4ik.parse_data
 
 import com.example.kriptorep4ik.R
 

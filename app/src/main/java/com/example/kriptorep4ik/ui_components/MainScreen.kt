@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.kriptorep4ik.logic.CurrencyViewModel
+import com.example.kriptorep4ik.parse_data.CurrencyViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
