@@ -26,15 +26,3 @@ class CurrencyViewModel: ViewModel() {
     }
 }
 
-//    private val _currencyRates = MutableLiveData<List<CurrencyRateModel>>()
-//    val currencyRates: LiveData<List<CurrencyRateModel>> get() = _currencyRates
-//
-//    fun loadData(scope: CoroutineScope) {
-//        scope.launch {
-//            val parser = JsoupParser().getWeb()
-//            _currencyRates.postValue(parser)
-//
-//            val additionalParser = AdditionalParser().getWeb()
-//            Log.d("mylog", "addition data: " +"$additionalParser")
-//        }
-//    }
