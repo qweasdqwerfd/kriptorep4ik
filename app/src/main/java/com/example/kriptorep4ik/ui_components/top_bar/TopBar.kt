@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.ParserModel
+import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +40,7 @@ import kotlinx.coroutines.CoroutineScope
 fun TopBar(
     navController: NavHostController,
     coroutineScope: CoroutineScope,
-    viewModelList: List<ParserModel>,
+    viewModelList: List<CurrencyModel>,
 ) {
     var currentRoute by remember { mutableStateOf("primary") }
 

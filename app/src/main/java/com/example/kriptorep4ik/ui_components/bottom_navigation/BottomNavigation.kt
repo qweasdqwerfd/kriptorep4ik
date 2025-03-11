@@ -1,6 +1,5 @@
 package com.example.kriptorep4ik.ui_components.bottom_navigation
 
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -18,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.ui.theme.hz
+import com.example.kriptorep4ik.ui_components.instruments.hz
 
 
 @Composable

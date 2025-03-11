@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.ParserModel
+import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 
 @Composable
 fun Elected() {
@@ -40,7 +40,7 @@ fun Elected() {
 }
 
 @Composable
-fun PanelItemElected(parserModel: ParserModel) {
+fun PanelItemElected(parserModel: CurrencyModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

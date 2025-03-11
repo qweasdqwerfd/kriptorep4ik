@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.ui.theme
+package com.example.kriptorep4ik.ui_components.instruments
 
 import androidx.compose.ui.graphics.Color
 

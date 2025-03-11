@@ -27,11 +27,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.ParserModel
+import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 
 @Composable
-fun AllScreen(viewModelList: List<ParserModel>) {
-    val favoriteItems = remember { mutableListOf<ParserModel>() }
+fun AllScreen(viewModelList: List<CurrencyModel>) {
+    val favoriteItems = remember { mutableListOf<CurrencyModel>() }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +59,7 @@ fun AllScreen(viewModelList: List<ParserModel>) {
 
 @Composable
 fun PanelItemAll(
-    parserModel: ParserModel,
+    parserModel: CurrencyModel,
     isFavorite: Boolean,
     onFavoriteClick: () -> Unit
 ) {

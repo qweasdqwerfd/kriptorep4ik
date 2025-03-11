@@ -1,6 +1,5 @@
-package com.example.kriptorep4ik.ui.theme
+package com.example.kriptorep4ik.ui_components.instruments
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

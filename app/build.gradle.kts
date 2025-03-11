@@ -46,6 +46,10 @@ dependencies {
     implementation ("androidx.compose.ui:ui:1.0.0")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.0.0")
     debugImplementation ("androidx.compose.ui:ui-tooling:1.0.0")
+    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation ("com.google.accompanist:accompanist-pager:0.28.0") // Проверьте актуальную версию
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.28.0") // Для индикаторов
+
 
 
     implementation(libs.androidx.core.ktx)

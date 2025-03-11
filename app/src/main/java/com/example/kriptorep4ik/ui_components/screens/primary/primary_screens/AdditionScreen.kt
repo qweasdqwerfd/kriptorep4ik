@@ -1,66 +1,75 @@
 package com.example.kriptorep4ik.ui_components.screens.primary.primary_screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavHostController
+import androidx.compose.ui.unit.dp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.ParserModel
+import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
+import com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.AllScreen
+import com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.Elected
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.pagerTabIndicatorOffset
+import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun AdditionScreen(parserRequest: List<ParserModel>) {
-    var selectTabIndex by remember { mutableStateOf(0) }
+fun AdditionScreen(parserRequest: List<CurrencyModel>) {
+    val tabs = listOf("Избранное", "Все")
+    val pagerState = rememberPagerState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize()) {
         TabRow(
-            selectedTabIndex = selectTabIndex,
+            selectedTabIndex = pagerState.currentPage,
             modifier = Modifier.fillMaxWidth(),
             containerColor = colorResource(R.color.MainInterface),
-            contentColor = White
+            contentColor = Color.White,
+            indicator = { tabPositions ->
+                Box(
+                    modifier = Modifier
+                        .tabIndicatorOffset(tabPositions[pagerState.currentPage])
+                        .height(4.dp)
+                        .background(color = Color.White)
+                )
+            }
         ) {
-            Tab(
-                selected = selectTabIndex == 0,
-                onClick = {
-                    selectTabIndex = 0;
-                },
-                text = {
-                    Text(
-                        "Избранное",
-                        color = White,
-                        style = TextStyle(fontWeight = FontWeight.Bold)
-                    )
-                },
-            )
-            Tab(
-                selected = selectTabIndex == 1,
-                onClick = {
-                    selectTabIndex = 1
-                },
-                text = {
-                    Text(
-                        "Все",
-                        color = White,
-                        style = TextStyle(fontWeight = FontWeight.Bold)
-                    )
-                },
-            )
+            tabs.forEachIndexed { index, title ->
+                Tab(
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        coroutineScope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                    text = {
+                        Text(
+                            text = title,
+                            color = Color.White,
+                            style = TextStyle(fontWeight = FontWeight.Bold)
+                        )
+                    }
+                )
+            }
         }
-        when (selectTabIndex) {
-            0 -> Elected()
-            1 -> AllScreen(parserRequest)
+
+        HorizontalPager(
+            state = pagerState,
+            count = tabs.size
+        ) { page ->
+            when (page) {
+                0 -> Elected()
+                1 -> AllScreen(parserRequest)
+            }
         }
     }
 }

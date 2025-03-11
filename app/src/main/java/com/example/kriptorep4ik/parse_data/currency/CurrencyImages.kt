@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.parse_data
+package com.example.kriptorep4ik.parse_data.currency
 
 import com.example.kriptorep4ik.R
 

@@ -1,6 +1,5 @@
 package com.example.kriptorep4ik.ui_components.screens.primary
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,18 +22,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.CurrencyImages
-import com.example.kriptorep4ik.parse_data.ParserModel
+import com.example.kriptorep4ik.parse_data.currency.CurrencyImages
+import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 
 
 @Composable
-fun Primary(viewModelList: List<ParserModel>) {
+fun Primary(viewModelList: List<CurrencyModel>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,15 +44,13 @@ fun Primary(viewModelList: List<ParserModel>) {
                 .fillMaxWidth()
                 .offset(y = 10.dp),
             horizontalArrangement = Arrangement.Center,
-
-            ) {
+        ) {
             Text(
                 text = "Курсы валют",
                 style = TextStyle(fontWeight = FontWeight.Bold),
                 color = Color.White,
                 fontSize = 30.sp
             )
-
         }
 
         if (viewModelList.isNotEmpty()) {
@@ -74,7 +71,6 @@ fun Primary(viewModelList: List<ParserModel>) {
             )
         }
 
-
         LazyColumn {
             items(viewModelList) { rate ->
                 CurrencyItem(rate = rate)
@@ -84,7 +80,7 @@ fun Primary(viewModelList: List<ParserModel>) {
 }
 
 @Composable
-fun CurrencyItem(rate: ParserModel) {
+fun CurrencyItem(rate: CurrencyModel) {
 
     val imageRes = CurrencyImages.images[rate.letterCode] ?: R.drawable.xdr
 
@@ -105,10 +101,10 @@ fun CurrencyItem(rate: ParserModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Image(
-                modifier = Modifier.size(80.dp),
-                painter = painterResource(imageRes),
+            AsyncImage(
+                model = imageRes,
                 contentDescription = "currency_image",
+                modifier = Modifier.size(80.dp),
                 contentScale = ContentScale.Inside
             )
 

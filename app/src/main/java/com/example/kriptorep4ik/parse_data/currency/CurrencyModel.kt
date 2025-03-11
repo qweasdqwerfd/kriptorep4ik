@@ -1,6 +1,6 @@
-package com.example.kriptorep4ik.parse_data
+package com.example.kriptorep4ik.parse_data.currency
 
-class ParserModel(
+class CurrencyModel(
     val letterCode: String,
     val change: String,
     val percentageChange: String,

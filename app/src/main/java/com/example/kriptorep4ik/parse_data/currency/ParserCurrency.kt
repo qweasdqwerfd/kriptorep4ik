@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.parse_data
+package com.example.kriptorep4ik.parse_data.currency
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -7,10 +7,10 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 
-class JsoupParser {
+class ParserCurrency {
 
 
-    suspend fun getWeb(): List<ParserModel> {
+    suspend fun getWeb(): List<CurrencyModel> {
         return withContext(Dispatchers.IO) {
             try {
                 val doc: Document = Jsoup.connect("https://finance.rambler.ru/currencies/").get()
@@ -32,7 +32,7 @@ class JsoupParser {
                     }
                 }
 
-                val additionalParserList: MutableList<ParserModel> = mutableListOf()
+                val additionalParserList: MutableList<CurrencyModel> = mutableListOf()
 
                 var percentageIndex = 10
                 var letterIndex = 0
@@ -44,7 +44,7 @@ class JsoupParser {
                     && unitIndex < unit.size && rateIndex < rate.size && currencyIndex < currency.size
                 ) {
 
-                    val tempContainer = ParserModel(
+                    val tempContainer = CurrencyModel(
                         letterCode = letterCode[letterIndex].text(),
                         change = allChanges[percentageIndex],
                         percentageChange = allChanges[percentageIndex + 1],
