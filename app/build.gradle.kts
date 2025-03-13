@@ -37,18 +37,19 @@ android {
     buildFeatures {
         compose = true
     }
+
+
+
 }
 
 dependencies {
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("org.jsoup:jsoup:1.13.1")
-    implementation ("androidx.compose.ui:ui:1.0.0")
-    implementation ("androidx.compose.ui:ui-tooling-preview:1.0.0")
-    debugImplementation ("androidx.compose.ui:ui-tooling:1.0.0")
-    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation("org.jsoup:jsoup:1.15.3")
+    implementation("io.coil-kt.coil3:coil-compose:3.1.0") // для icon
     implementation ("com.google.accompanist:accompanist-pager:0.28.0") // Проверьте актуальную версию
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.28.0") // Для индикаторов
+    implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.19.1")
+
 
 
 

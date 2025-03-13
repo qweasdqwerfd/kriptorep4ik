@@ -9,13 +9,7 @@ import androidx.compose.ui.text.style.TextAlign
 
 
 
-@Composable
-fun Screen2() {
-    Text(modifier = Modifier.fillMaxSize().wrapContentHeight(),
-        textAlign = TextAlign.Center,
-        text = "Screen 2"
-    )
-}
+
 
 @Composable
 fun Screen3() {
