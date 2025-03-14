@@ -20,6 +20,8 @@ import com.example.kriptorep4ik.parse_data.ViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
+import com.example.kriptorep4ik.ui_components.screens.primary.Primary
+import com.example.kriptorep4ik.ui_components.screens.resources.Resources
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
 
 @Composable
@@ -37,7 +39,13 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
     LaunchedEffect(Unit) {
         viewModel.loadData()
         viewModel.fetchData()
+
     }
+
+    Primary(currencyState)
+    Resources(resourceState)
+
+
 
     Scaffold(
         topBar = {
@@ -55,8 +63,7 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            NavGraph(navController, currencyState, context)
-            // Отображение Screen2 с графиком
+            NavGraph(navController, currencyState, resourceState, context)
             Screen2()
         }
     }

@@ -56,7 +56,7 @@ fun Primary(viewModelList: List<CurrencyModel>) {
         if (viewModelList.isNotEmpty()) {
             Text(
                 modifier = Modifier.padding(start = 13.dp, top = 5.dp),
-                text = "${viewModelList[0].date}",
+                text = viewModelList[0].date,
                 fontSize = 15.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
@@ -72,17 +72,17 @@ fun Primary(viewModelList: List<CurrencyModel>) {
         }
 
         LazyColumn {
-            items(viewModelList) { rate ->
-                CurrencyItem(rate = rate)
+            items(viewModelList) { item ->
+                CurrencyItem(model = item)
             }
         }
     }
 }
 
 @Composable
-fun CurrencyItem(rate: CurrencyModel) {
+fun CurrencyItem(model: CurrencyModel) {
 
-    val imageRes = CurrencyImages.images[rate.letterCode] ?: R.drawable.xdr
+    val imageRes = CurrencyImages.images[model.letterCode] ?: R.drawable.xdr
 
     Card(
         modifier = Modifier
@@ -114,14 +114,14 @@ fun CurrencyItem(rate: CurrencyModel) {
             Column {
 
                 Text(
-                    text = rate.letterCode,
+                    text = model.letterCode,
                     fontSize = 25.sp,
                     color = Color.White,
                     fontWeight = FontWeight.ExtraBold,
                 )
 
                 Text(
-                    text = rate.currency,
+                    text = model.currency,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
                     color = Color.White
@@ -136,17 +136,17 @@ fun CurrencyItem(rate: CurrencyModel) {
             ) {
 
                 Text(
-                    text = "${rate.change}",
+                    text = model.change,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
-                    color = if (rate.change?.toDoubleOrNull() ?: 0.0 > 0) Color.Green else Color.Red
+                    color = if ((model.change.toDoubleOrNull() ?: 0.0) > 0) Color.Green else Color.Red
                 )
 
                 Spacer(modifier = Modifier.weight(15f))
 
 
                 Text(
-                    text = "${rate.rate} ₽",
+                    text = "${model.rate} ₽",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -156,11 +156,11 @@ fun CurrencyItem(rate: CurrencyModel) {
 
 
                 Text(
-                    text = "${rate.percentageChange}",
+                    text = model.percentageChange,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
-                    color = if (rate.percentageChange?.replace("%", "")
-                            ?.toDoubleOrNull() ?: 0.0 > 0
+                    color = if ((model.percentageChange?.replace("%", "")
+                            ?.toDoubleOrNull() ?: 0.0) > 0
                     ) Color.Green else Color.Red
                 )
 

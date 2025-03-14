@@ -7,8 +7,13 @@ import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 import com.example.kriptorep4ik.parse_data.currency.ParserCurrency
 import com.example.kriptorep4ik.parse_data.resources.ParserResources
 import com.example.kriptorep4ik.parse_data.resources.ResourcesModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class ViewModel : ViewModel() {
@@ -34,16 +39,28 @@ class ViewModel : ViewModel() {
     }
 
 
+    @OptIn(FlowPreview::class)
     fun fetchData() {
         viewModelScope.launch {
-            try {
-                val tempData = ParserResources().getWeb()
-                _parserResourcesEnergy.value = tempData
-
-            } catch (e: Exception) {
-                Log.e("ResourcesEnergyViewModel", "Error loading data: ${e.message}")
+            flow {
+                while (true) {
+                    try {
+                        val tempData = ParserResources().getWeb()
+                        if (tempData.isNotEmpty()) { // Проверка на пустой список
+                            emit(tempData)
+                        }
+                    } catch (e: Exception) {
+                        Log.e("ViewModel", "Error fetching data: ${e.message}")
+                    }
+                    delay(1000)
+                }
             }
+
+                .debounce(2000)
+                .distinctUntilChanged()
+                .collect { tempData ->
+                    _parserResourcesEnergy.value = tempData
+                }
         }
     }
 }
-
