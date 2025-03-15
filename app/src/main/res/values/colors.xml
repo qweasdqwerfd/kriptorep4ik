@@ -10,4 +10,6 @@
     <color name="DefoultButton">#3b3b3b</color>
     <color name="MainInterface">#202020</color>
     <color name="MainInterface2">#181414</color>
+    <color name="MyGreen">#4f9f4d</color>
+    <color name="MyRed">#f04659</color>
 </resources>

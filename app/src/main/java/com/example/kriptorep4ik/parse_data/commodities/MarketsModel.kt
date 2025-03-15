@@ -1,6 +1,6 @@
-package com.example.kriptorep4ik.parse_data.resources
+package com.example.kriptorep4ik.parse_data.commodities
 
-data class ResourcesModel(
+data class MarketsModel(
     val name: String,
     val additionalName: String,
     val price: String,
@@ -10,3 +10,4 @@ data class ResourcesModel(
     val YoY: String,
     val date: String
 )
+
