@@ -3,7 +3,6 @@ package com.example.kriptorep4ik.ui_components.screens.markets
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,8 +29,34 @@ import com.example.kriptorep4ik.animation.AnimatedValue
 import com.example.kriptorep4ik.parse_data.commodities.MarketsModel
 
 @Composable
-fun Markets(resourceState: List<MarketsModel>) {
-    if (resourceState.isEmpty()) {
+fun Markets(
+    resourceStateEnergy: List<MarketsModel>,
+    resourceStateMetals: List<MarketsModel>,
+    resourceStateAgricultural: List<MarketsModel>,
+    resourceStateIndustrial: List<MarketsModel>,
+    resourceStateLiveStock: List<MarketsModel>,
+    resourceStateIndex: List<MarketsModel>,
+    resourceStateElectricity: List<MarketsModel>,
+
+    ) {
+    val combinedList = mutableListOf<Any>().apply {
+        add("Energy")
+        addAll(resourceStateEnergy)
+        add("Metals")
+        addAll(resourceStateMetals)
+        add("Agricultural")
+        addAll(resourceStateAgricultural)
+        add("Industrial")
+        addAll(resourceStateIndustrial)
+        add("LiveStock")
+        addAll(resourceStateLiveStock)
+        add("Index")
+        addAll(resourceStateIndex)
+        add("Electricity")
+        addAll(resourceStateElectricity)
+    }
+
+    if (combinedList.isEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -52,8 +77,23 @@ fun Markets(resourceState: List<MarketsModel>) {
             modifier = Modifier.background(color = Color.Black)
         ) {
             LazyColumn {
-                items(resourceState) { item ->
-                    PanelItemCommodities(model = item)
+                items(combinedList) { item ->
+                    when (item) {
+                        is String -> {
+                            Text(
+                                text = item,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
+                                color = Color.White,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        is MarketsModel -> {
+                            PanelItemCommodities(model = item)
+                        }
+                    }
                 }
             }
         }
@@ -87,94 +127,90 @@ fun PanelItemCommodities(
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Первая строка: Название, Цена, Процент
                 Row(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    // Название
-                    Text(
-                        text = model.name,
-                        fontSize = 15.sp,
-                        modifier = Modifier.weight(1f),
-                        style = TextStyle(fontWeight = FontWeight.Bold),
-                        textAlign = TextAlign.Start
-                    )
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(
+                            text = model.name,
+                            fontSize = 15.sp,
+                            style = TextStyle(fontWeight = FontWeight.Bold),
+                            textAlign = TextAlign.Start
+                        )
 
-                    // Цена и дата
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 4.dp),
+                            text = model.additionalName,
+                            fontSize = 11.sp,
+                            color = Color.White,
+                            style = TextStyle(fontWeight = FontWeight.Normal),
+                            textAlign = TextAlign.Start
+                        )
+                    }
+
                     Column(
                         modifier = Modifier
-                            .width(80.dp)
-                            .fillMaxHeight(),
-                        horizontalAlignment = androidx.compose.ui.Alignment.End
+                            .width(90.dp)
+                            .padding(end = 20.dp)
                     ) {
-                        // Цена
                         AnimatedValue(
                             value = model.price,
                             valueFontSize = 13,
                             modifier = Modifier.fillMaxWidth(),
                             highlightColor = Color.Yellow.copy(alpha = 0.5f),
-                            textColor = Color.White
+                            textColor = Color.White,
+                            textAlign = TextAlign.End
                         )
 
-                        // Дата (ровно под ценой)
                         Text(
                             text = model.date,
                             fontSize = 10.sp,
                             color = Color.Gray,
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 4.dp),
                             textAlign = TextAlign.End
                         )
                     }
 
-                    // Процент и изменение за день
                     Column(
                         modifier = Modifier
                             .width(50.dp)
-                            .fillMaxHeight(),
-                        horizontalAlignment = androidx.compose.ui.Alignment.End
                     ) {
-                        // Процент
                         AnimatedValue(
                             value = model.percent,
                             valueFontSize = 13,
                             modifier = Modifier.fillMaxWidth(),
-                            highlightColor = if ((model.percent.replace("%", "")
-                                    .toDoubleOrNull() ?: 0.0) > 0
-                            ) colorResource(R.color.MyGreen) else colorResource(R.color.MyRed),
-                            textColor = if ((model.percent.replace("%", "")
-                                    .toDoubleOrNull() ?: 0.0) > 0
-                            ) colorResource(R.color.MyGreen) else colorResource(R.color.MyRed)
+                            highlightColor = getColorForValue(model.percent),
+                            textColor = getColorForValue(model.percent),
+
+                            textAlign = TextAlign.End
                         )
 
-                        // Изменение за день (ровно под процентом)
                         AnimatedValue(
                             value = model.dayChange,
                             valueFontSize = 12,
                             modifier = Modifier.fillMaxWidth(),
-                            highlightColor = if ((model.dayChange.toDoubleOrNull()
-                                    ?: 0.0) > 0
-                            ) colorResource(R.color.MyGreen) else colorResource(R.color.MyRed),
-                            textColor = if ((model.dayChange.toDoubleOrNull()
-                                    ?: 0.0) > 0
-                            ) colorResource(R.color.MyGreen) else colorResource(R.color.MyRed)
+                            highlightColor = getColorForValue(model.percent),
+                            textColor = getColorForValue(model.percent),
+                            textAlign = TextAlign.End
                         )
                     }
                 }
-
-                // Вторая строка: Дополнительное название
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = model.additionalName,
-                        fontSize = 10.5.sp,
-                        modifier = Modifier.weight(1f),
-                        color = Color.White,
-                        style = TextStyle(fontWeight = FontWeight.Normal),
-                        textAlign = TextAlign.Start
-                    )
-                }
             }
         }
+    }
+}
+
+@Composable
+fun getColorForValue(value: String): Color {
+    val numericValue = value.replace("%", "").toDoubleOrNull() ?: 0.0
+    return if (numericValue >= 0) {
+        colorResource(R.color.MyGreen)
+    } else {
+        colorResource(R.color.MyRed)
     }
 }

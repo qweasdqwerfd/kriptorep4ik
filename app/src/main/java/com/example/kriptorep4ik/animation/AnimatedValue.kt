@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -22,7 +23,8 @@ fun AnimatedValue(
     valueFontSize: Int,
     modifier: Modifier = Modifier,
     highlightColor: Color = Color.Yellow,
-    textColor: Color = Color.White
+    textColor: Color = Color.White,
+    textAlign: TextAlign
 ) {
     var previousValue by remember { mutableStateOf(value) }
     var animationTrigger by remember { mutableStateOf(false) }
@@ -44,8 +46,9 @@ fun AnimatedValue(
     Text(
         text = value,
         modifier = modifier
-            .padding(4.dp),
+            .padding(top = 4.dp),
         color = animatedColor,
-        fontSize = valueFontSize.sp
+        fontSize = valueFontSize.sp,
+        textAlign = textAlign
     )
 }

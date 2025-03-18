@@ -30,21 +30,43 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
     val coroutineScope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
 
-    val currencyState by viewModel.currencyState.collectAsState()
-    val resourceState by viewModel.parserResourcesEnergy.collectAsState()
+    val currencyStateCurrency by viewModel.currencyState.collectAsState()
+    val resourceStateEnergy by viewModel.parserCommoditiesEnergy.collectAsState()
+    val resourceStateMetals by viewModel.parserCommoditiesMetals.collectAsState()
+    val resourceStateAgricultural by viewModel.parserCommoditiesAgricultural.collectAsState()
+    val resourceStateIndustrial by viewModel.parserCommoditiesIndustrial.collectAsState()
+    val resourceStateLiveStock by viewModel.parserLiveStock.collectAsState()
+    val resourceStateIndex by viewModel.parserIndex.collectAsState()
+    val resourceStateElectricity by viewModel.parserElectricity.collectAsState()
+
 
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            viewModel.loadData()
-            viewModel.fetchData()
+            viewModel.loadCurrencyData()
+            viewModel.loadEnergyData()
+            viewModel.loadMetalsData()
+            viewModel.loadAgriculturalData()
+            viewModel.loadIndustrialData()
+            viewModel.loadLiveStockData()
+            viewModel.loadIndexData()
+            viewModel.loadElectricityData()
+
         }
 
 
     }
 
-    Primary(currencyState)
-    Markets(resourceState)
+    Primary(currencyStateCurrency)
+    Markets(
+        resourceStateEnergy,
+        resourceStateMetals,
+        resourceStateAgricultural,
+        resourceStateIndustrial,
+        resourceStateLiveStock,
+        resourceStateIndex,
+        resourceStateElectricity
+    )
 
 
 
@@ -53,7 +75,7 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             TopBar(
                 navController,
                 coroutineScope,
-                currencyState
+                currencyStateCurrency
             )
         },
         bottomBar = {
@@ -64,7 +86,17 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            NavGraph(navController, currencyState, resourceState)
+            NavGraph(
+                navController,
+                currencyStateCurrency,
+                resourceStateEnergy,
+                resourceStateMetals,
+                resourceStateAgricultural,
+                resourceStateIndustrial,
+                resourceStateLiveStock,
+                resourceStateIndex,
+                resourceStateElectricity
+            )
             Screen2()
         }
     }

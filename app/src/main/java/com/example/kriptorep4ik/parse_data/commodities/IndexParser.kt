@@ -2,20 +2,15 @@ package com.example.kriptorep4ik.parse_data.commodities
 
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import kotlin.random.Random
 
-class EnergyParser {
+class IndexParser {
 
     suspend fun getWeb(): List<MarketsModel> {
         return withContext(Dispatchers.IO) {
             try {
-                delay(Random.nextLong(1000, 3000)) // Случайная задержка (имитация пользователя)
-
                 val doc = fetchDocumentWithHeaders("https://tradingeconomics.com/commodities")
 
-                // Проверка на корректность структуры страницы
                 if (!doc.select("td#p.datatable-item").isNotEmpty()) {
                     Log.e("mylog", "Error: Data not found or structure changed")
                     Log.e("mylog", "Received HTML: ${doc.body().html().take(500)}") // Для анализа
@@ -29,38 +24,42 @@ class EnergyParser {
                 val percent = doc.select("td#pch.datatable-item")
                 val date = doc.select("td#date")
 
-                val resourcesEnergyList = mutableListOf<MarketsModel>()
+                val resourcesIndex = mutableListOf<MarketsModel>()
 
-                if (name.size >= 18 && price.size >= 14 && dayChange.size >= 14 &&
-                    percent.size >= 14 && date.size >= 14
-                ) {
-                    var ind_name = 4
+                var ind_name = 83
+                var ind_additionalName = 79
+                var ind_price = 79
+                var ind_dayChange = 79
+                var ind_percent = 79
+                var ind_date = 79
 
-                    for (ind in 0 until 14) {
+
+                for (ind in 0 until 9) {
+                    if (name.size > ind_name &&
+                        additionalName.size > ind_additionalName &&
+                        price.size > ind_price &&
+                        dayChange.size > ind_dayChange &&
+                        percent.size > ind_percent &&
+                        date.size > ind_date
+                    ) {
                         val tempContainer = MarketsModel(
-                            name[ind_name].text(),
-                            additionalName[ind].text(),
-                            price[ind].text(),
-                            dayChange[ind].text(),
-                            percent[ind].text(),
-                            date[ind].text()
+                            name = name[ind_name++].text(),
+                            additionalName = additionalName[ind_additionalName++].text(),
+                            price = price[ind_price++].text(),
+                            dayChange = dayChange[ind_dayChange++].text(),
+                            percent = percent[ind_percent++].text(),
+                            date = date[ind_date++].text()
                         )
-
-                        resourcesEnergyList.add(tempContainer)
-
-                        ind_name++
-
+                        resourcesIndex.add(tempContainer)
                     }
                 }
 
-                return@withContext resourcesEnergyList
 
+                return@withContext resourcesIndex
             } catch (e: Exception) {
-                Log.e("mylog", "Error fetching energy data: ${e.message}")
+                Log.e("mylog", "Error fetching Index data: ${e.message}")
                 return@withContext emptyList()
             }
         }
     }
-
-
 }

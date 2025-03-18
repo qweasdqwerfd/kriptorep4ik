@@ -7,9 +7,9 @@ sealed class BottomItem(
     val iconId: Int,
     val route: String
 ) {
-    object PrimaryScreen1: BottomItem("Главная", R.drawable.primary, "primary")
+    object PrimaryScreen1: BottomItem("Calendar", R.drawable.kalendar, "calendar")
+    object ResScreen4: BottomItem("Markets", R.drawable.markets, "markets")
     object ExchangeScreen2: BottomItem("Обменники", R.drawable.exchange, "exchange")
     object ConvertScreen3: BottomItem("Ковертер", R.drawable.convert, "convert")
-    object ResScreen4: BottomItem("Ресурсы", R.drawable.res, "res")
     object MenuScreen5: BottomItem("Меню", R.drawable.menu, "menu")
 }
