@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.ui_components.screens.primary.primary_screens
+package com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.change
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,20 +29,28 @@ import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 
 @Composable
-fun Elected() {
+fun AllScreen(viewModelList: List<CurrencyModel>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Black)
+            .background(Color.Black)
     ) {
-        Text("hz")
+        LazyColumn {
+            items(viewModelList) { item ->
+                PanelItemAll(
+                    parserModel = item
+                )
+            }
+        }
 
     }
 
 }
 
 @Composable
-fun PanelItemElected(parserModel: CurrencyModel) {
+fun PanelItemAll(
+    parserModel: CurrencyModel,
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,7 +66,7 @@ fun PanelItemElected(parserModel: CurrencyModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f), // Растягиваем текст, чтобы занял доступное место
                 text = parserModel.currency,
                 color = Color.White,
                 fontSize = 20.sp,
@@ -69,7 +79,9 @@ fun PanelItemElected(parserModel: CurrencyModel) {
                     modifier = Modifier
                         .size(43.dp)
                         .padding(end = 10.dp),
-                    painter = painterResource(R.drawable.baseline_star_rate_24),
+                    painter = painterResource(
+                        R.drawable.baseline_star_outline_24
+                    ),
                     contentDescription = "star",
                     tint = Color.Black
                 )

@@ -49,7 +49,7 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.28.0") // Для индикаторов
     implementation("com.github.PhilJay:MPAndroidChart:3.1.0")
     implementation("org.seleniumhq.selenium:selenium-java:4.19.1")
-
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
 
 
 

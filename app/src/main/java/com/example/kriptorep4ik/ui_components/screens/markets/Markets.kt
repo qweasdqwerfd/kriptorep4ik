@@ -25,79 +25,55 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.animation.AnimatedValue
 import com.example.kriptorep4ik.parse_data.commodities.MarketsModel
 
 @Composable
 fun Markets(
-    resourceStateEnergy: List<MarketsModel>,
-    resourceStateMetals: List<MarketsModel>,
-    resourceStateAgricultural: List<MarketsModel>,
-    resourceStateIndustrial: List<MarketsModel>,
-    resourceStateLiveStock: List<MarketsModel>,
-    resourceStateIndex: List<MarketsModel>,
-    resourceStateElectricity: List<MarketsModel>,
+    resourceCommodities: Map<String, List<MarketsModel>>
+) {
 
-    ) {
-    val combinedList = mutableListOf<Any>().apply {
-        add("Energy")
-        addAll(resourceStateEnergy)
-        add("Metals")
-        addAll(resourceStateMetals)
-        add("Agricultural")
-        addAll(resourceStateAgricultural)
-        add("Industrial")
-        addAll(resourceStateIndustrial)
-        add("LiveStock")
-        addAll(resourceStateLiveStock)
-        add("Index")
-        addAll(resourceStateIndex)
-        add("Electricity")
-        addAll(resourceStateElectricity)
-    }
-
-    if (combinedList.isEmpty()) {
+    if (resourceCommodities.isEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.Black)
+                .background(color = Color.Black),
         ) {
             Text(
-                text = "Данные загружаются...",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(10.dp),
+                text = "Загрузка данных",
                 color = Color.White,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp
             )
         }
-
     } else {
         Column(
             modifier = Modifier.background(color = Color.Black)
         ) {
             LazyColumn {
-                items(combinedList) { item ->
-                    when (item) {
-                        is String -> {
-                            Text(
-                                text = item,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 8.dp, horizontal = 16.dp),
-                                color = Color.White,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                        is MarketsModel -> {
-                            PanelItemCommodities(model = item)
-                        }
+                resourceCommodities.forEach { (category, items) ->
+                    item {
+                        Text(
+                            text = category,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                            color = Color.White,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    items(items) { item ->
+                        PanelItemCommodities(model = item)
                     }
                 }
             }
         }
     }
+
 }
 
 
@@ -156,12 +132,11 @@ fun PanelItemCommodities(
                             .width(90.dp)
                             .padding(end = 20.dp)
                     ) {
-                        AnimatedValue(
-                            value = model.price,
-                            valueFontSize = 13,
+                        Text(
+                            text = model.price,
+                            fontSize = 13.sp,
+                            color = Color.White,
                             modifier = Modifier.fillMaxWidth(),
-                            highlightColor = Color.Yellow.copy(alpha = 0.5f),
-                            textColor = Color.White,
                             textAlign = TextAlign.End
                         )
 
@@ -177,25 +152,21 @@ fun PanelItemCommodities(
                     }
 
                     Column(
-                        modifier = Modifier
-                            .width(50.dp)
+                        modifier = Modifier.width(50.dp)
                     ) {
-                        AnimatedValue(
-                            value = model.percent,
-                            valueFontSize = 13,
+                        Text(
+                            text = model.percent,
+                            fontSize = 13.sp,
+                            color = getColorForValue(model.percent),
                             modifier = Modifier.fillMaxWidth(),
-                            highlightColor = getColorForValue(model.percent),
-                            textColor = getColorForValue(model.percent),
-
                             textAlign = TextAlign.End
                         )
 
-                        AnimatedValue(
-                            value = model.dayChange,
-                            valueFontSize = 12,
+                        Text(
+                            text = model.dayChange,
+                            fontSize = 12.sp,
+                            color = getColorForValue(model.percent),
                             modifier = Modifier.fillMaxWidth(),
-                            highlightColor = getColorForValue(model.percent),
-                            textColor = getColorForValue(model.percent),
                             textAlign = TextAlign.End
                         )
                     }

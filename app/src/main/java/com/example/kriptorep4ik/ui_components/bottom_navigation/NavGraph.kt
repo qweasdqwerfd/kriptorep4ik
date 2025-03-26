@@ -10,19 +10,14 @@ import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 import com.example.kriptorep4ik.ui_components.screens.Screen3
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.primary.Primary
-import com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.AdditionScreen
+import com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.change.AdditionScreen
 
 @Composable
 fun NavGraph(
     navHostController: NavHostController,
     parserRequest: List<CurrencyModel>,
-    resourceStateEnergy: List<MarketsModel>,
-    resourceStateMetals: List<MarketsModel>,
-    resourceStateAgricultural: List<MarketsModel>,
-    resourceStateIndustrial: List<MarketsModel>,
-    resourceStateLiveStock: List<MarketsModel>,
-    resourceStateIndex: List<MarketsModel>,
-    resourceStateElectricity: List<MarketsModel>,
+    commoditiesStateCurrency: Map<String, List<MarketsModel>>,
+
 
 
     ) {
@@ -38,13 +33,7 @@ fun NavGraph(
         }
         composable("markets") {
             Markets(
-                resourceStateEnergy,
-                resourceStateMetals,
-                resourceStateAgricultural,
-                resourceStateIndustrial,
-                resourceStateLiveStock,
-                resourceStateIndex,
-                resourceStateElectricity,
+                commoditiesStateCurrency
             )
         }
         composable("addition") {

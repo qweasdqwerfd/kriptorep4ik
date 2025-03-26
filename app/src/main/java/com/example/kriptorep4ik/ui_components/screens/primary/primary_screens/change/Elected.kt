@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.ui_components.screens.primary.primary_screens
+package com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.change
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -16,7 +14,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,39 +27,20 @@ import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
 
 @Composable
-fun AllScreen(viewModelList: List<CurrencyModel>) {
-    val favoriteItems = remember { mutableListOf<CurrencyModel>() }
+fun Elected() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(color = Color.Black)
     ) {
-        LazyColumn {
-            items(viewModelList) { item ->
-                PanelItemAll(
-                    parserModel = item,
-                    isFavorite = favoriteItems.contains(item),
-                    onFavoriteClick = {
-                        if (favoriteItems.contains(item)) {
-                            favoriteItems.remove(item)
-                        } else {
-                            favoriteItems.add(item)
-                        }
-                    }
-                )
-            }
-        }
+        Text("hz")
 
     }
 
 }
 
 @Composable
-fun PanelItemAll(
-    parserModel: CurrencyModel,
-    isFavorite: Boolean,
-    onFavoriteClick: () -> Unit
-) {
+fun PanelItemElected(parserModel: CurrencyModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,7 +56,7 @@ fun PanelItemAll(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                modifier = Modifier.weight(1f), // Растягиваем текст, чтобы занял доступное место
+                modifier = Modifier.weight(1f),
                 text = parserModel.currency,
                 color = Color.White,
                 fontSize = 20.sp,
@@ -86,15 +64,12 @@ fun PanelItemAll(
                 textAlign = TextAlign.Start
             )
 
-            IconButton(onClick = onFavoriteClick) {
+            IconButton(onClick = {}) {
                 Icon(
                     modifier = Modifier
                         .size(43.dp)
                         .padding(end = 10.dp),
-                    painter = painterResource(
-                        if (isFavorite) R.drawable.baseline_star_rate_24
-                        else R.drawable.baseline_star_outline_24
-                    ),
+                    painter = painterResource(R.drawable.baseline_star_rate_24),
                     contentDescription = "star",
                     tint = Color.Black
                 )

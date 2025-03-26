@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -32,7 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.kriptorep4ik.R
+import com.example.kriptorep4ik.parse_data.commodities.MarketsModel
 import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
+import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,8 +44,9 @@ fun TopBar(
     navController: NavHostController,
     coroutineScope: CoroutineScope,
     viewModelList: List<CurrencyModel>,
+    commoditiesStateCurrency: Map<String, List<MarketsModel>>,
 ) {
-    var currentRoute by remember { mutableStateOf("primary") }
+    var currentRoute by remember { mutableStateOf("calendar") }
 
 
 
@@ -56,16 +60,15 @@ fun TopBar(
     Column {
         TopAppBar(
 
-            windowInsets = WindowInsets.systemBars,
 
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = colorResource(R.color.MainInterface),
+                containerColor = Color.Black,
                 titleContentColor = White
             ),
             title = {
                 Text(
                     text = when (currentRoute) {
-                        "primary" -> "Главная"
+                        "calendar" -> "Главная"
                         "exchange" -> "Обменники"
                         "convert" -> "Конвертер"
                         "addition" -> "Настройки валют"
@@ -77,9 +80,11 @@ fun TopBar(
                     }
                 )
             },
+
+
             navigationIcon = {
                 if (currentRoute == "addition" || currentRoute == "allScreen" || currentRoute == "elected") {
-                    IconButton(onClick = { navController.navigate("primary") }) {
+                    IconButton(onClick = { navController.navigate("calendar") }) {
                         Icon(
                             Icons.Filled.ArrowBack,
                             contentDescription = "назад",
@@ -106,7 +111,7 @@ fun TopBar(
                 }
                 when (currentRoute) {
 
-                    "primary" -> {
+                    "calendar" -> {
                         Button(
                             onClick = { navController.navigate("addition") },
                             colors = ButtonColors(
@@ -160,7 +165,7 @@ fun TopBar(
                         }
                     }
 
-                    "res" -> {
+                    "markets" -> {
                         IconButton(onClick = {}) {
                             Image(
                                 modifier = Modifier.size(20.dp),
@@ -172,6 +177,10 @@ fun TopBar(
                 }
             }
         )
+
+        if (currentRoute == "markets") {
+            MarketsTabs(commoditiesStateCurrency)
+        }
 
     }
 

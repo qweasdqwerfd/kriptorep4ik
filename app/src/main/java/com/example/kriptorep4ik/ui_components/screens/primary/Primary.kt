@@ -76,6 +76,7 @@ fun Primary(viewModelList: List<CurrencyModel>) {
                 CurrencyItem(model = item)
             }
         }
+
     }
 }
 

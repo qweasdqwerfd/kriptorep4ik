@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,59 +14,57 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.parse_data.ViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
+import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
 import com.example.kriptorep4ik.ui_components.screens.primary.Primary
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(viewModel: ViewModel = viewModel()) {
+
+    val systemUiController = rememberSystemUiController()
+    val statusBarColor = colorResource(R.color.MainInterface)
+
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = statusBarColor,
+            darkIcons = false // или true, если иконки должны быть тёмными
+        )
+    }
+
     val navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
-
-    val currencyStateCurrency by viewModel.currencyState.collectAsState()
-    val resourceStateEnergy by viewModel.parserCommoditiesEnergy.collectAsState()
-    val resourceStateMetals by viewModel.parserCommoditiesMetals.collectAsState()
-    val resourceStateAgricultural by viewModel.parserCommoditiesAgricultural.collectAsState()
-    val resourceStateIndustrial by viewModel.parserCommoditiesIndustrial.collectAsState()
-    val resourceStateLiveStock by viewModel.parserLiveStock.collectAsState()
-    val resourceStateIndex by viewModel.parserIndex.collectAsState()
-    val resourceStateElectricity by viewModel.parserElectricity.collectAsState()
 
 
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            viewModel.loadCurrencyData()
-            viewModel.loadEnergyData()
-            viewModel.loadMetalsData()
-            viewModel.loadAgriculturalData()
-            viewModel.loadIndustrialData()
-            viewModel.loadLiveStockData()
-            viewModel.loadIndexData()
-            viewModel.loadElectricityData()
-
+            viewModel.parserData
+            viewModel.currencyState
         }
-
-
     }
+
+    val currencyStateCurrency by viewModel.currencyState.collectAsState()
+    val commoditiesStateCurrency by viewModel.parserData.collectAsState()
+
 
     Primary(currencyStateCurrency)
     Markets(
-        resourceStateEnergy,
-        resourceStateMetals,
-        resourceStateAgricultural,
-        resourceStateIndustrial,
-        resourceStateLiveStock,
-        resourceStateIndex,
-        resourceStateElectricity
+        commoditiesStateCurrency
+    )
+    MarketsTabs(
+        commoditiesStateCurrency
     )
 
 
@@ -75,7 +74,8 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             TopBar(
                 navController,
                 coroutineScope,
-                currencyStateCurrency
+                currencyStateCurrency,
+                commoditiesStateCurrency
             )
         },
         bottomBar = {
@@ -89,13 +89,7 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             NavGraph(
                 navController,
                 currencyStateCurrency,
-                resourceStateEnergy,
-                resourceStateMetals,
-                resourceStateAgricultural,
-                resourceStateIndustrial,
-                resourceStateLiveStock,
-                resourceStateIndex,
-                resourceStateElectricity
+                commoditiesStateCurrency
             )
             Screen2()
         }
