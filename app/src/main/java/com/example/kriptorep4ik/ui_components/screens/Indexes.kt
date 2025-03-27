@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.parse_data
+package com.example.kriptorep4ik.ui_components.screens
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

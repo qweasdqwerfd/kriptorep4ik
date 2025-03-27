@@ -19,10 +19,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             MainScreen()
 
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val svgPath = TestGraph().fetchDataWithSelenium()
-//                Log.d("SVGPath", "SVG Path: $svgPath")
-//            }
         }
     }
 }

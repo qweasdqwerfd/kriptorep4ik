@@ -19,6 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.parse_data.ViewModel
+import com.example.kriptorep4ik.parse_data.markets.AllMarkets
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
@@ -31,14 +32,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(viewModel: ViewModel = viewModel()) {
-
     val systemUiController = rememberSystemUiController()
     val statusBarColor = colorResource(R.color.MainInterface)
 
     SideEffect {
         systemUiController.setStatusBarColor(
             color = statusBarColor,
-            darkIcons = false // или true, если иконки должны быть тёмными
+            darkIcons = false
         )
     }
 
@@ -46,27 +46,32 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
     val coroutineScope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
 
-
-
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            viewModel.parserData
+            viewModel.commoditiesState
             viewModel.currencyState
+            viewModel.getAllMarketsState
         }
     }
 
-    val currencyStateCurrency by viewModel.currencyState.collectAsState()
-    val commoditiesStateCurrency by viewModel.parserData.collectAsState()
+    val currencyList by viewModel.currencyState.collectAsState()
+    val commoditiesList by viewModel.commoditiesState.collectAsState()
+    val currenciesList by viewModel.getAllMarketsState.collectAsState()
 
 
-    Primary(currencyStateCurrency)
+
+
+    Primary(currencyList)
     Markets(
-        commoditiesStateCurrency
+        commoditiesList
     )
     MarketsTabs(
-        commoditiesStateCurrency
+        commoditiesList,
+        currenciesList
     )
-
+    AllMarkets(
+        currenciesList
+    )
 
 
     Scaffold(
@@ -74,8 +79,9 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             TopBar(
                 navController,
                 coroutineScope,
-                currencyStateCurrency,
-                commoditiesStateCurrency
+                currencyList,
+                commoditiesList,
+                currenciesList
             )
         },
         bottomBar = {
@@ -88,8 +94,8 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
         Box(modifier = Modifier.padding(innerPadding)) {
             NavGraph(
                 navController,
-                currencyStateCurrency,
-                commoditiesStateCurrency
+                currencyList,
+                commoditiesList
             )
             Screen2()
         }

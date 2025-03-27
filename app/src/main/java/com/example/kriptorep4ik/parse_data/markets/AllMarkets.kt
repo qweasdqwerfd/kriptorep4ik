@@ -1,5 +1,6 @@
-package com.example.kriptorep4ik.ui_components.screens.markets
+package com.example.kriptorep4ik.parse_data.markets
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,13 +26,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.models.CommoditiesModel
+import com.example.kriptorep4ik.parse_data.models.AllMarketsModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Markets(
-    resourceCommodities: Map<String, List<CommoditiesModel>>
+fun AllMarkets(
+    resourceCommodities: Map<String, Map<String, List<AllMarketsModel>>>
 ) {
-
     if (resourceCommodities.isEmpty()) {
         Column(
             modifier = Modifier
@@ -51,35 +52,56 @@ fun Markets(
         }
     } else {
         Column(
-            modifier = Modifier.background(color = Color.Black)
+            modifier = Modifier
+                .background(color = Color.Black)
+                .fillMaxSize()
         ) {
             LazyColumn {
-                resourceCommodities.forEach { (category, items) ->
-                    item {
+                resourceCommodities.forEach { (category, subCategories) ->
+                    // Заголовок основной категории
+                    stickyHeader {
                         Text(
                             text = category,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 8.dp, horizontal = 16.dp),
+                                .background(Color.DarkGray)
+                                .padding(16.dp),
                             color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    items(items) { item ->
-                        PanelItemCommodities(model = item)
+
+                    subCategories.forEach { (subCategory, items) ->
+                        // Подзаголовок подкатегории
+                        item {
+                            Text(
+                                text = subCategory,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.Gray.copy(alpha = 0.5f))
+                                    .padding(vertical = 8.dp, horizontal = 16.dp),
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
+                        // Элементы подкатегории
+                        items(items) { item ->
+                            PanelItemAllMarkets(model = item)
+                        }
                     }
                 }
             }
         }
     }
-
 }
 
 
 @Composable
-fun PanelItemCommodities(
-    model: CommoditiesModel,
+fun PanelItemAllMarkets(
+    model: AllMarketsModel,
 ) {
     Card(
         modifier = Modifier
@@ -116,15 +138,6 @@ fun PanelItemCommodities(
                             textAlign = TextAlign.Start
                         )
 
-                        Text(
-                            modifier = Modifier
-                                .padding(top = 4.dp),
-                            text = model.additionalName,
-                            fontSize = 11.sp,
-                            color = Color.White,
-                            style = TextStyle(fontWeight = FontWeight.Normal),
-                            textAlign = TextAlign.Start
-                        )
                     }
 
                     Column(

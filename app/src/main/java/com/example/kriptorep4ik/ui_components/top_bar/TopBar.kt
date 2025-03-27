@@ -2,9 +2,7 @@ package com.example.kriptorep4ik.ui_components.top_bar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -33,8 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.commodities.MarketsModel
 import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
+import com.example.kriptorep4ik.parse_data.models.AllMarketsModel
+import com.example.kriptorep4ik.parse_data.models.CommoditiesModel
 import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
 import kotlinx.coroutines.CoroutineScope
 
@@ -44,7 +43,8 @@ fun TopBar(
     navController: NavHostController,
     coroutineScope: CoroutineScope,
     viewModelList: List<CurrencyModel>,
-    commoditiesStateCurrency: Map<String, List<MarketsModel>>,
+    commoditiesStateCurrency: Map<String, List<CommoditiesModel>>,
+    currenciesList: Map<String, Map<String, List<AllMarketsModel>>>,
 ) {
     var currentRoute by remember { mutableStateOf("calendar") }
 
@@ -179,7 +179,7 @@ fun TopBar(
         )
 
         if (currentRoute == "markets") {
-            MarketsTabs(commoditiesStateCurrency)
+            MarketsTabs(commoditiesStateCurrency, currenciesList)
         }
 
     }
