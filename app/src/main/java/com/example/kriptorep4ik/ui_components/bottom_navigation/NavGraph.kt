@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.kriptorep4ik.parse_data.models.CommoditiesModel
 import com.example.kriptorep4ik.parse_data.currency.CurrencyModel
+import com.example.kriptorep4ik.parse_data.models.MarketModel
 import com.example.kriptorep4ik.ui_components.screens.Screen3
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.primary.Primary
@@ -16,7 +16,7 @@ import com.example.kriptorep4ik.ui_components.screens.primary.primary_screens.ch
 fun NavGraph(
     navHostController: NavHostController,
     parserRequest: List<CurrencyModel>,
-    commoditiesStateCurrency: Map<String, List<CommoditiesModel>>,
+    currenciesList: Map<String, Map<String, List<MarketModel>>>,
 
 
 
@@ -33,7 +33,7 @@ fun NavGraph(
         }
         composable("markets") {
             Markets(
-                commoditiesStateCurrency
+                currenciesList,
             )
         }
         composable("addition") {

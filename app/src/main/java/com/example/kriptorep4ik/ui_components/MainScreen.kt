@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,33 +13,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.parse_data.ViewModel
-import com.example.kriptorep4ik.parse_data.markets.AllMarkets
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
+import com.example.kriptorep4ik.ui_components.instruments.status_bar.StatusBar
 import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
 import com.example.kriptorep4ik.ui_components.screens.primary.Primary
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(viewModel: ViewModel = viewModel()) {
-    val systemUiController = rememberSystemUiController()
-    val statusBarColor = colorResource(R.color.MainInterface)
+    StatusBar()
 
-    SideEffect {
-        systemUiController.setStatusBarColor(
-            color = statusBarColor,
-            darkIcons = false
-        )
-    }
+
 
     val navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
@@ -48,14 +38,13 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            viewModel.commoditiesState
             viewModel.currencyState
             viewModel.getAllMarketsState
         }
     }
 
+
     val currencyList by viewModel.currencyState.collectAsState()
-    val commoditiesList by viewModel.commoditiesState.collectAsState()
     val currenciesList by viewModel.getAllMarketsState.collectAsState()
 
 
@@ -63,15 +52,12 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
 
     Primary(currencyList)
     Markets(
-        commoditiesList
+        currenciesList,
     )
     MarketsTabs(
-        commoditiesList,
         currenciesList
     )
-    AllMarkets(
-        currenciesList
-    )
+
 
 
     Scaffold(
@@ -80,7 +66,6 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
                 navController,
                 coroutineScope,
                 currencyList,
-                commoditiesList,
                 currenciesList
             )
         },
@@ -95,7 +80,7 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             NavGraph(
                 navController,
                 currencyList,
-                commoditiesList
+                currenciesList,
             )
             Screen2()
         }

@@ -1,6 +1,8 @@
 package com.example.kriptorep4ik.ui_components.screens.markets
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -25,49 +28,55 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
-import com.example.kriptorep4ik.parse_data.models.CommoditiesModel
+import com.example.kriptorep4ik.parse_data.models.MarketModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Markets(
-    resourceCommodities: Map<String, List<CommoditiesModel>>
+    resourceList: Map<String, Map<String, List<MarketModel>>>,
 ) {
-
-    if (resourceCommodities.isEmpty()) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Black),
-        ) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black),
+        contentAlignment = Alignment.Center
+    ) {
+        if (resourceList.isEmpty()) {
             Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
                 text = "Загрузка данных",
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 fontSize = 30.sp
             )
-        }
-    } else {
-        Column(
-            modifier = Modifier.background(color = Color.Black)
-        ) {
-            LazyColumn {
-                resourceCommodities.forEach { (category, items) ->
-                    item {
-                        Text(
-                            text = category,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp, horizontal = 16.dp),
-                            color = Color.White,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    items(items) { item ->
-                        PanelItemCommodities(model = item)
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+            ) {
+                LazyColumn {
+                    resourceList.forEach { (category, subCategories) ->
+
+
+                        subCategories.forEach { (subCategory, items) ->
+                            stickyHeader {
+                                Text(
+                                    text = subCategory,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(Color.Black.copy(alpha = 0.5f))
+                                        .padding(vertical = 8.dp, horizontal = 16.dp),
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+
+                            items(items) { item ->
+                                PanelItemCommodities(model = item)
+                            }
+                        }
                     }
                 }
             }
@@ -77,9 +86,12 @@ fun Markets(
 }
 
 
+
+
+
 @Composable
 fun PanelItemCommodities(
-    model: CommoditiesModel,
+    model: MarketModel,
 ) {
     Card(
         modifier = Modifier
@@ -116,15 +128,7 @@ fun PanelItemCommodities(
                             textAlign = TextAlign.Start
                         )
 
-                        Text(
-                            modifier = Modifier
-                                .padding(top = 4.dp),
-                            text = model.additionalName,
-                            fontSize = 11.sp,
-                            color = Color.White,
-                            style = TextStyle(fontWeight = FontWeight.Normal),
-                            textAlign = TextAlign.Start
-                        )
+
                     }
 
                     Column(
