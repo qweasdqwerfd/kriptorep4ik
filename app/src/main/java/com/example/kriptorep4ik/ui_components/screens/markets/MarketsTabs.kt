@@ -33,6 +33,8 @@ fun MarketsTabs(
     allMarkets: Map<String, Map<String, List<MarketModel>>>
 ) {
     val tabs = allMarkets.keys.toList() // Получаем список заголовков из мапы
+    val subCategories = allMarkets.values.flatMap { it.keys }
+
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -83,6 +85,7 @@ fun MarketsTabs(
                         }
                     )
                 }
+
             }
 
             HorizontalPager(
@@ -103,4 +106,3 @@ fun MarketsTabs(
         }
     }
 }
-

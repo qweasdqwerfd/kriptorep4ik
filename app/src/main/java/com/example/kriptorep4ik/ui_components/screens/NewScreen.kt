@@ -4,6 +4,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Indexes() {
-    Text(text = "Indexes")
+fun NewScreen() {
+
+
+    Text(text = "news")
 }

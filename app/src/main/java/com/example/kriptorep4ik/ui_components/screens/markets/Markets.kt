@@ -133,8 +133,8 @@ fun PanelItemCommodities(
 
                     Column(
                         modifier = Modifier
-                            .width(90.dp)
-                            .padding(end = 20.dp)
+                            .width(100.dp)
+                            .padding(end = 30.dp)
                     ) {
                         Text(
                             text = model.price,
@@ -156,7 +156,7 @@ fun PanelItemCommodities(
                     }
 
                     Column(
-                        modifier = Modifier.width(50.dp)
+                        modifier = Modifier.width(60.dp)
                     ) {
                         Text(
                             text = model.percent,

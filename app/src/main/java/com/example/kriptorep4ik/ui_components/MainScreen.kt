@@ -1,6 +1,5 @@
 package com.example.kriptorep4ik.ui_components
 
-import Screen2
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -19,10 +18,8 @@ import com.example.kriptorep4ik.parse_data.ViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.instruments.status_bar.StatusBar
-import com.example.kriptorep4ik.ui_components.modal_bottom_sheet.CustomModalBottomSheet
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
-import com.example.kriptorep4ik.ui_components.screens.primary.Primary
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
 import kotlinx.coroutines.launch
 
@@ -38,19 +35,16 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            viewModel.currencyState
             viewModel.getAllMarketsState
         }
     }
 
 
-    val currencyList by viewModel.currencyState.collectAsState()
     val currenciesList by viewModel.getAllMarketsState.collectAsState()
 
 
 
 
-    Primary(currencyList)
     Markets(
         currenciesList,
     )
@@ -65,7 +59,6 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             TopBar(
                 navController,
                 coroutineScope,
-                currencyList,
                 currenciesList
             )
         },
@@ -79,17 +72,10 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
         Box(modifier = Modifier.padding(innerPadding)) {
             NavGraph(
                 navController,
-                currencyList,
                 currenciesList,
             )
-            Screen2()
         }
     }
 
-    if (showBottomSheet) {
-        CustomModalBottomSheet(
-            showBottomSheet = showBottomSheet,
-            onDismissRequest = { showBottomSheet = false }
-        )
-    }
+
 }

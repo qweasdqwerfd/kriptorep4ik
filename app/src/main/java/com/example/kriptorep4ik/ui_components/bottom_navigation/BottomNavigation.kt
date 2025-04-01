@@ -24,11 +24,10 @@ import com.example.kriptorep4ik.ui_components.instruments.hz
 fun BottomNavigation(navController: NavController, onBottomNavClick: () -> Unit) {
 
     val listItems = listOf(
-        BottomItem.PrimaryScreen1,
-        BottomItem.ExchangeScreen2,
-        BottomItem.MenuScreen5,
-        BottomItem.ConvertScreen3,
-        BottomItem.ResScreen4,
+        BottomItem.CalendarScreen,
+        BottomItem.MarketScreen,
+        BottomItem.NewsScreen,
+        BottomItem.AccountScreen,
     )
 
     NavigationBar(
