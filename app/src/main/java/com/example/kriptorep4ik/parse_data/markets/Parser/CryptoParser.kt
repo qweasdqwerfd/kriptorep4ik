@@ -32,7 +32,7 @@ class CryptoParser: MarketParser {
             return list
 
         } catch (e: Exception) {
-            Log.e("check", "Ошибка в getWeb():", e)
+            Log.e("parser", "Ошибка в getWeb():", e)
             throw e
         }
     }

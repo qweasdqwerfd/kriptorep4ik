@@ -53,17 +53,7 @@ fun TopBar(
             ),
             title = {
                 Text(
-                    text = when (currentRoute) {
-                        "calendar" -> "Главная"
-                        "exchange" -> "Обменники"
-                        "convert" -> "Конвертер"
-                        "addition" -> "Настройки валют"
-                        "allScreen" -> "Настройки валют"
-                        "elected" -> "Настройки валют"
-                        else -> {
-                            "Ресурсы"
-                        }
-                    }
+                    text = "trading economics"
                 )
             },
 

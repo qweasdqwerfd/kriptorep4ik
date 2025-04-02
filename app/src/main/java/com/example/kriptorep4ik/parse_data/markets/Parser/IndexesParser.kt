@@ -19,7 +19,6 @@ class IndexesParser: MarketParser {
 
 
             val name = doc.select("b")
-            val additionalName = doc.select("div[style*=font-size: 10px]")
             val price = doc.select("td#p.datatable-item")
             val dayChange = doc.select("td#nch.datatable-item")
             val percent = doc.select("td#pch.datatable-item")
@@ -38,7 +37,7 @@ class IndexesParser: MarketParser {
 
 
         } catch (e: Exception) {
-            Log.e("check", "Ошибка в getWeb():", e)
+            Log.e("parser", "Ошибка в getWeb():", e)
             throw e
         }
     }

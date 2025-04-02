@@ -16,7 +16,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.kriptorep4ik.parse_data.ViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
-import com.example.kriptorep4ik.ui_components.bottom_navigation.NavGraph
 import com.example.kriptorep4ik.ui_components.instruments.status_bar.StatusBar
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
@@ -26,9 +25,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(viewModel: ViewModel = viewModel()) {
     StatusBar()
-
-
-
     val navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -36,6 +32,7 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             viewModel.getAllMarketsState
+            viewModel.loadTest()
         }
     }
 
@@ -74,8 +71,7 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
                 navController,
                 currenciesList,
             )
+
         }
     }
-
-
 }

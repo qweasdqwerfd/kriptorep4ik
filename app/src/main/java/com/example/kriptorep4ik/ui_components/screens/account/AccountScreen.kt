@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.ui_components.screens
+package com.example.kriptorep4ik.ui_components.screens.account
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 fun MarketsTabs(
     allMarkets: Map<String, Map<String, List<MarketModel>>>
 ) {
-    val tabs = allMarkets.keys.toList() // Получаем список заголовков из мапы
+    val tabs = allMarkets.keys.toList()
     val subCategories = allMarkets.values.flatMap { it.keys }
 
     val pagerState = rememberPagerState()
