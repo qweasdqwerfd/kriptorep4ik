@@ -18,6 +18,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.kriptorep4ik.R
+import com.example.kriptorep4ik.parse_data.models.NewsItem
 import com.example.kriptorep4ik.ui_components.screens.news.screens.EconomyScreen
 import com.example.kriptorep4ik.ui_components.screens.news.screens.MarketsScreen
 import com.example.kriptorep4ik.ui_components.screens.news.screens.NewsScreen
@@ -28,7 +29,11 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun NewsTab() {
+fun NewsTab(
+    newDataList: List<NewsItem>,
+    economyDataList: List<NewsItem>,
+    marketsDataList: List<NewsItem>
+) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     val tabs = listOf("News", "Economy", "Markets")
@@ -74,9 +79,9 @@ fun NewsTab() {
                 .weight(1f)
         ) { page ->
             when (page) {
-                0 -> NewsScreen()
-                1 -> EconomyScreen()
-                2 -> MarketsScreen()
+                0 -> NewsScreen(newDataList)
+                1 -> EconomyScreen(economyDataList)
+                2 -> MarketsScreen(marketsDataList)
             }
         }
     }

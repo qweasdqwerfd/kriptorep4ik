@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -51,6 +52,13 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.19.1")
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
 
+    implementation("io.ktor:ktor-client-core:2.3.7")
+    implementation("io.ktor:ktor-client-cio:2.3.7")     // Для JVM/Android
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation(libs.kotlinx.serialization.json)
+
 
 
     implementation(libs.androidx.core.ktx)
@@ -66,6 +74,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.media3.common.ktx)
+    implementation(libs.transport.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

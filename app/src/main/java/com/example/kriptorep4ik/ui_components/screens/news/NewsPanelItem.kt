@@ -26,14 +26,13 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kriptorep4ik.R
+import com.example.kriptorep4ik.parse_data.models.NewsItem
 
-@Preview(showBackground = true)
 @Composable
-fun NewsPanelItem() {
+fun NewsPanelItem(dataModel: NewsItem) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +53,7 @@ fun NewsPanelItem() {
             Column(modifier = Modifier.padding(10.dp)) {
                 // Заголовок
                 Text(
-                    text = "US Stocks Lack Direction",
+                    text = dataModel.title,
                     modifier = Modifier.fillMaxWidth(),
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Bold
@@ -78,29 +77,30 @@ fun NewsPanelItem() {
                             .clickable {  },
                     ) {
                         Text(
-                            text = "United States",
+                            text = dataModel.country,
                             fontSize = 14.sp,
                             color = Color.White
                         )
                     }
 
-                    Spacer(modifier = Modifier.width(8.dp))
 
-                    // Тег категории
-                    Box(
-                        modifier = Modifier
-                            .background(
-                                color = colorResource(R.color.categoryBack),
-                                shape = RoundedCornerShape(4.dp)
+                    if (dataModel.category != null && dataModel.category != dataModel.country) {
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    color = colorResource(R.color.categoryBack),
+                                    shape = RoundedCornerShape(4.dp)
+                                )
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                                .clickable {  }
+                        ) {
+                            Text(
+                                text = dataModel.category.toString(),
+                                fontSize = 14.sp,
+                                color = Color.White
                             )
-                            .padding(horizontal = 8.dp, vertical = 4.dp)
-                            .clickable {  },
-                    ) {
-                        Text(
-                            text = "Stock Market",
-                            fontSize = 14.sp,
-                            color = Color.White
-                        )
+                        }
                     }
                 }
 
@@ -108,20 +108,7 @@ fun NewsPanelItem() {
 
                 // Текст новости
                 Text(
-                    text = "The S&P Global Brazil Manufacturing PMI slipped to 51.8 " +
-                            "in March of 2025 from 53.0 in the previous month, marking " +
-                            "the fourteenth monthly expansion in factory activity, but " +
-                            "remaining firmly below the average from the previous year. " +
-                            "New orders expanded at a slower pace than in February, reflecting " +
-                            "the softening demand for the sector as the weaker local currency and" +
-                            " high interest rates dampened client demand. Meanwhile, output levels " +
-                            "increased for the sixth time in seven months, as the solid production " +
-                            "volumes sustained the expansion. At the same time, input cost inflation " +
-                            "eased to a three-month low, with selling prices rising at the weakest rate" +
-                            " since May 2024. Looking forward, goods producers remained optimistic" +
-                            " about future output levels amid expectations of new export " +
-                            "opportunities and investment, particularly for those in the " +
-                            "agriculture, automotive, and construction sectors.",
+                    text = dataModel.description,
                     fontSize = 14.sp,
                     lineHeight = 20.sp,
                     maxLines = 7,
@@ -151,7 +138,7 @@ fun NewsPanelItem() {
                         modifier = Modifier
                             .padding(top = 5.dp),
 
-                        text = "19 minutes ago",
+                        text = dataModel.date,
                         fontSize = 9.sp,
                         color = colorResource(R.color.textColor),
                     )

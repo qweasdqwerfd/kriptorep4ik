@@ -40,11 +40,13 @@ fun MarketsTabs(
 
     if (tabs.isEmpty()) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Black),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Нет данных", color = Color.White, fontSize = 20.sp)
+            Text("Загрузка данных", color = Color.White, fontSize = 20.sp)
         }
     } else {
         Column {

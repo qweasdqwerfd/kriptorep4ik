@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.kriptorep4ik.parse_data.models.MarketModel
+import com.example.kriptorep4ik.parse_data.models.NewsItem
 import com.example.kriptorep4ik.ui_components.screens.CalendarScreen
 import com.example.kriptorep4ik.ui_components.screens.account.AccountScreen
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
@@ -15,6 +16,9 @@ import com.example.kriptorep4ik.ui_components.screens.news.screens.NewsScreen
 fun NavGraph(
     navHostController: NavHostController,
     currenciesList: Map<String, Map<String, List<MarketModel>>>,
+    newDataList: List<NewsItem>,
+    economyDataList: List<NewsItem>,
+    marketsDataList: List<NewsItem>,
 
 
 
@@ -29,8 +33,12 @@ fun NavGraph(
             )
         }
         composable("news") {
-            NewsScreen()
-            NewsTab()
+            NewsScreen(newDataList)
+            NewsTab(
+                newDataList,
+                economyDataList,
+                marketsDataList
+                )
         }
         composable("account") {
             AccountScreen()

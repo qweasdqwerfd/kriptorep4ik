@@ -19,6 +19,9 @@ import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
 import com.example.kriptorep4ik.ui_components.instruments.status_bar.StatusBar
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
+import com.example.kriptorep4ik.ui_components.screens.news.screens.EconomyScreen
+import com.example.kriptorep4ik.ui_components.screens.news.screens.MarketsScreen
+import com.example.kriptorep4ik.ui_components.screens.news.screens.NewsScreen
 import com.example.kriptorep4ik.ui_components.top_bar.TopBar
 import kotlinx.coroutines.launch
 
@@ -32,12 +35,17 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
     LaunchedEffect(Unit) {
         coroutineScope.launch {
             viewModel.getAllMarketsState
-            viewModel.loadTest()
+            viewModel.loadNewData()
+            viewModel.loadEconomyData()
+            viewModel.loadMarketsData()
         }
     }
 
 
     val currenciesList by viewModel.getAllMarketsState.collectAsState()
+    val newDataList by viewModel.getNewsData.collectAsState()
+    val economyDataList by viewModel.getEconomyData.collectAsState()
+    val marketsDataList by viewModel.getMarketsData.collectAsState()
 
 
 
@@ -47,6 +55,15 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
     )
     MarketsTabs(
         currenciesList
+    )
+    NewsScreen(
+        newDataList
+    )
+    EconomyScreen(
+        economyDataList
+    )
+    MarketsScreen(
+        marketsDataList
     )
 
 
@@ -70,6 +87,9 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
             NavGraph(
                 navController,
                 currenciesList,
+                newDataList,
+                economyDataList,
+                marketsDataList
             )
 
         }
