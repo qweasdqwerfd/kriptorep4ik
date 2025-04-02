@@ -35,7 +35,7 @@ class BondsParser: MarketParser {
             return list
 
         } catch (e: Exception) {
-            Log.e("parser", "Ошибка в getWeb():", e)
+            Log.e("parser", "Ошибка в BondsParser getWeb():", e)
             throw e
         }
     }

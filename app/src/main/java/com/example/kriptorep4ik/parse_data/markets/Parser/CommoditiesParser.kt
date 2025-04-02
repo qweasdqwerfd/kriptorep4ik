@@ -37,7 +37,7 @@ class CommoditiesParser : MarketParser {
             return list
 
         } catch (e: Exception) {
-            Log.e("parser", "Ошибка в getWeb():", e)
+            Log.e("parser", "Ошибка в CommoditiesParser getWeb():", e)
             throw e
         }
     }
