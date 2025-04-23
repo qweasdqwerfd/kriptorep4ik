@@ -2,6 +2,7 @@ package com.example.kriptorep4ik.ui_components.top_bar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
@@ -17,8 +18,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.parse_data.models.MarketModel
@@ -52,10 +56,24 @@ fun TopBar(
                 titleContentColor = White
             ),
             title = {
-                Text(
-                    text = "trading economics"
-                )
+                Column {
+                    Text(
+                        text = "TRADING",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        modifier = Modifier
+                            .offset(y=-11.dp),
+                        text = "ECONOMICS",
+                        color = colorResource(R.color.economicColor),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 17.sp
+                    )
+                }
             },
+
 
 
             navigationIcon = {},

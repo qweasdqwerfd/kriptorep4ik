@@ -38,7 +38,8 @@ fun NavGraph(
                 newDataList,
                 economyDataList,
                 marketsDataList
-                )
+            )
+
         }
         composable("account") {
             AccountScreen()

@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.ui_components.instruments.status_bar
+package com.example.kriptorep4ik.ui_components.customs_components.status_bar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect

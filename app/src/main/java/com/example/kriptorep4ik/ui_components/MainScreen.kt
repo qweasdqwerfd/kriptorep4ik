@@ -16,7 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.kriptorep4ik.parse_data.ViewModel
 import com.example.kriptorep4ik.ui_components.bottom_navigation.BottomNavigation
-import com.example.kriptorep4ik.ui_components.instruments.status_bar.StatusBar
+import com.example.kriptorep4ik.ui_components.customs_components.status_bar.StatusBar
 import com.example.kriptorep4ik.ui_components.screens.markets.Markets
 import com.example.kriptorep4ik.ui_components.screens.markets.MarketsTabs
 import com.example.kriptorep4ik.ui_components.screens.news.screens.EconomyScreen
@@ -57,7 +57,8 @@ fun MainScreen(viewModel: ViewModel = viewModel()) {
         currenciesList
     )
     NewsScreen(
-        newDataList
+        newDataList,
+
     )
     EconomyScreen(
         economyDataList

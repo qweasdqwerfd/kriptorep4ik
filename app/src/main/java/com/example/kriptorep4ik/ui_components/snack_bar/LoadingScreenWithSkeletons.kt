@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -50,7 +48,6 @@ fun LoadingScreenWithSkeletons() {
             .background(Color.Black)
     ) {
         Column {
-            Spacer(modifier = Modifier.height(56.dp)) // для TopBar отступ
 
             LazyColumn(
                 contentPadding = PaddingValues(16.dp),

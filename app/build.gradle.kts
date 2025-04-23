@@ -58,6 +58,9 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation(libs.kotlinx.serialization.json)
+    implementation ("androidx.core:core-splashscreen:1.0.1") // или последняя
+    implementation ("com.google.android.material:material:1.11.0") // актуальная
+    implementation ("androidx.activity:activity:1.9.0")
 
 
 
