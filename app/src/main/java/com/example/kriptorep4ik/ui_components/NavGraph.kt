@@ -23,7 +23,7 @@ fun NavGraph(
 
 
     ) {
-    NavHost(navController = navHostController, startDestination = "news") {
+    NavHost(navController = navHostController, startDestination = "markets") {
         composable("calendar") {
             CalendarScreen()
         }

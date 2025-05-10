@@ -1,4 +1,4 @@
-package com.example.kriptorep4ik.ui_components.customs_components
+package com.example.kriptorep4ik.ui_components.customs_components.launch_screen
 
 import android.content.Intent
 import android.os.Bundle

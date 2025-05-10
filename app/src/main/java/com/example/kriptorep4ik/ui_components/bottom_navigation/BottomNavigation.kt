@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.kriptorep4ik.R
 import com.example.kriptorep4ik.ui_components.instruments.hz
+import com.example.kriptorep4ik.ui_components.instruments.unselectedBottomColor
 
 
 @Composable
@@ -60,9 +61,9 @@ fun BottomNavigation(navController: NavController, onBottomNavClick: () -> Unit)
                 colors = NavigationBarItemColors(
                     selectedIconColor = Color.White,
                     selectedTextColor = Color.White,
-                    unselectedIconColor = Color.White,
-                    unselectedTextColor = Color.White,
-                    selectedIndicatorColor = hz,
+                    unselectedIconColor = unselectedBottomColor,
+                    unselectedTextColor = unselectedBottomColor,
+                    selectedIndicatorColor = colorResource(R.color.MainInterface),
                     disabledIconColor = hz,
                     disabledTextColor = hz
                 )

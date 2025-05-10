@@ -22,7 +22,7 @@
             android:theme="@style/Theme.Kriptorep4ik" />
 
         <activity
-            android:name=".ui_components.customs_components.SplashActivity"
+            android:name=".ui_components.customs_components.launch_screen.SplashActivity"
             android:theme="@style/Theme.Kriptorep4ik"
             android:exported="true">
             <intent-filter>
